@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoneyPay</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+body{
+    background:#f4f7f8;
+    min-height:100vh;
+    color:#172b2f;
+}
+
+button,input{
+    font-family:inherit;
+}
+
+.hidden{
+    display:none!important;
+}
+
+.screen{
+    min-height:100vh;
+}
+
+.auth-screen{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:linear-gradient(135deg,#00a884,#087f68);
+}
+
+.auth-box{
+    width:100%;
+    max-width:430px;
+    background:white;
+    border-radius:28px;
+    padding:32px 25px;
+    box-shadow:0 20px 60px rgba(0,0,0,.18);
+}
+
+.logo{
+    text-align:center;
+    font-size:35px;
+    font-weight:900;
+    color:#00a884;
+    margin-bottom:8px;
+}
+
+.sub-title{
+    text-align:center;
+    color:#68777b;
+    margin-bottom:25px;
+}
+
+.tabs{
+    display:flex;
+    background:#edf3f3;
+    border-radius:14px;
+    padding:4px;
+    margin-bottom:20px;
+}
+
+.tab{
+    width:50%;
+    border:0;
+    padding:12px;
+    border-radius:11px;
+    background:transparent;
+    font-size:16px;
+    cursor:pointer;
+    color:#536468;
+}
+
+.tab.active{
+    background:#00a884;
+    color:white;
+}
+
+.field{
+    margin-bottom:15px;
+}
+
+.field label{
+    display:block;
+    margin-bottom:7px;
+    font-size:14px;
+    font-weight:700;
+}
+
+.field input{
+    width:100%;
+    padding:15px;
+    border:1px solid #dce5e5;
+    border-radius:13px;
+    font-size:16px;
+    outline:none;
+    background:#fafcfc;
+}
+
+.field input:focus{
+    border-color:#00a884;
+}
+
+.main-btn{
+    width:100%;
+    border:0;
+    background:#00a884;
+    color:white;
+    padding:15px;
+    border-radius:14px;
+    font-weight:800;
+    font-size:17px;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+.main-btn:disabled{
+    opacity:.55;
+}
+
+.error{
+    background:#fff0f0;
+    color:#c53939;
+    padding:11px;
+    border-radius:10px;
+    margin-bottom:14px;
+    font-size:14px;
+    display:none;
+}
+
+.success{
+    background:#eafaf4;
+    color:#087f68;
+    padding:11px;
+    border-radius:10px;
+    margin-bottom:14px;
+    font-size:14px;
+    display:none;
+}
+
+.app{
+    min-height:100vh;
+    background:#f4f7f8;
+}
+
+.topbar{
+    height:68px;
+    background:#00a884;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.topbar-title{
+    font-size:22px;
+    font-weight:900;
+}
+
+.logout-btn{
+    border:0;
+    background:rgba(255,255,255,.17);
+    color:white;
+    padding:9px 13px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.container{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+    padding:20px 15px 40px;
+}
+
+.balance-card{
+    background:linear-gradient(135deg,#00a884,#056b5a);
+    color:white;
+    border-radius:24px;
+    padding:25px;
+    box-shadow:0 15px 35px rgba(0,168,132,.22);
+    margin-bottom:18px;
+}
+
+.balance-label{
+    opacity:.85;
+    font-size:14px;
+    margin-bottom:7px;
+}
+
+.balance{
+    font-size:38px;
+    font-weight:900;
+    direction:ltr;
+    text-align:right;
+}
+
+.currency{
+    font-size:15px;
+    opacity:.85;
+    margin-top:4px;
+}
+
+.user-info{
+    margin-top:18px;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.2);
+    font-size:14px;
+}
+
+.actions{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+    margin-bottom:22px;
+}
+
+.action{
+    border:0;
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    cursor:pointer;
+    box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+
+.action-icon{
+    width:54px;
+    height:54px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#e8faf5;
+    color:#00a884;
+    font-size:26px;
+}
+
+.action-text{
+    text-align:right;
+}
+
+.action-text strong{
+    display:block;
+    font-size:17px;
+    margin-bottom:4px;
+}
+
+.action-text span{
+    color:#7a888b;
+    font-size:13px;
+}
+
+.section-title{
+    font-weight:900;
+    font-size:18px;
+    margin:15px 3px 12px;
+}
+
+.transactions{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.transaction{
+    background:white;
+    padding:15px;
+    border-radius:17px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 3px 12px rgba(0,0,0,.04);
+}
+
+.trans-right{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.trans-icon{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+}
+
+.sent{
+    background:#fff0f0;
+    color:#d34e4e;
+}
+
+.received{
+    background:#e8faf5;
+    color:#00a884;
+}
+
+.trans-number{
+    font-weight:800;
+}
+
+.trans-date{
+    color:#8a9699;
+    font-size:11px;
+    margin-top:4px;
+}
+
+.trans-amount{
+    font-weight:900;
+    direction:ltr;
+}
+
+.amount-sent{
+    color:#d34e4e;
+}
+
+.amount-received{
+    color:#00a884;
+}
+
+.empty{
+    background:white;
+    border-radius:17px;
+    padding:25px;
+    text-align:center;
+    color:#8a9699;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:none;
+    justify-content:center;
+    align-items:flex-end;
+    z-index:100;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:650px;
+    background:white;
+    border-radius:28px 28px 0 0;
+    padding:25px 18px 30px;
+    animation:slideUp .22s ease;
+}
+
+@keyframes slideUp{
+    from{
+        transform:translateY(100%)
+    }
+    to{
+        transform:translateY(0)
+    }
+}
+
+.modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.modal-head h2{
+    font-size:21px;
+}
+
+.close{
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:50%;
+    background:#edf3f3;
+    cursor:pointer;
+    font-size:21px;
+}
+
+.recipient-info{
+    display:none;
+    padding:13px;
+    background:#eefaf6;
+    border-radius:12px;
+    margin-top:10px;
+    color:#087f68;
+    font-size:14px;
+}
+
+.admin-badge{
+    display:inline-block;
+    background:#fff;
+    color:#00a884;
+    padding:3px 8px;
+    border-radius:8px;
+    font-size:11px;
+    margin-right:5px;
+}
+
+.loading{
+    display:none;
+    text-align:center;
+    padding:10px;
+    color:#708083;
+}
+
+.balance-loading{
+    opacity:.6;
+}
+
+@media(max-width:480px){
+
+    .balance{
+        font-size:31px;
+    }
+
+    .auth-box{
+        padding:27px 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section id="authScreen" class="screen auth-screen">
+
+    <div class="auth-box">
+
+        <div class="logo">
+            MoneyPay
+        </div>
+
+        <div class="sub-title">
+            تحويل الأموال بسهولة وسرعة
+        </div>
+
+        <div class="tabs">
+
+            <button id="loginTab" class="tab active">
+                تسجيل الدخول
+            </button>
+
+            <button id="registerTab" class="tab">
+                حساب جديد
+            </button>
+
+        </div>
+
+        <div id="errorBox" class="error"></div>
+
+        <div id="successBox" class="success"></div>
+
+        <div id="loginForm">
+
+            <div class="field">
+
+                <label>
+                    رقم الهاتف
+                </label>
+
+                <input
+                    id="loginPhone"
+                    type="tel"
+                    inputmode="numeric"
+                    placeholder="01000000000"
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    كلمة المرور
+                </label>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="••••••••"
+                >
+
+            </div>
+
+            <button id="loginBtn" class="main-btn">
+                دخول
+            </button>
+
+        </div>
+
+        <div id="registerForm" class="hidden">
+
+            <div class="field">
+
+                <label>
+                    الاسم
+                </label>
+
+                <input
+                    id="registerName"
+                    type="text"
+                    placeholder="اسمك"
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    رقم الهاتف
+                </label>
+
+                <input
+                    id="registerPhone"
+                    type="tel"
+                    inputmode="numeric"
+                    placeholder="01000000000"
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    كلمة المرور
+                </label>
+
+                <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="6 أحرف أو أكثر"
+                >
+
+            </div>
+
+            <button id="registerBtn" class="main-btn">
+                إنشاء الحساب
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="appScreen" class="app hidden">
+
+    <header class="topbar">
+
+        <div class="topbar-title">
+            MoneyPay
+        </div>
+
+        <button id="logoutBtn" class="logout-btn">
+            تسجيل الخروج
+        </button>
+
+    </header>
+
+
+    <main class="container">
+
+        <div class="balance-card">
+
+            <div class="balance-label">
+                رصيدك الحالي
+            </div>
+
+            <div id="balance" class="balance">
+                0
+            </div>
+
+            <div class="currency">
+                جنيه مصري
+            </div>
+
+            <div class="user-info">
+
+                <span id="displayName"></span>
+
+                <span
+                    id="adminBadge"
+                    class="admin-badge hidden"
+                >
+                    ADMIN
+                </span>
+
+                <div
+                    id="displayPhone"
+                    style="margin-top:5px;opacity:.8"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button id="openTransferBtn" class="action">
+
+                <div class="action-icon">
+                    ↗
+                </div>
+
+                <div class="action-text">
+
+                    <strong>
+                        تحويل فلوس
+                    </strong>
+
+                    <span>
+                        حوّل الأموال إلى أي حساب مسجل
+                    </span>
+
+                </div>
+
+            </button>
+
+        </div>
+
+
+        <div class="section-title">
+            آخر العمليات
+        </div>
+
+        <div id="transactions" class="transactions">
+
+            <div class="empty">
+                لا توجد عمليات حتى الآن
+            </div>
+
+        </div>
+
+    </main>
+
+</section>
+
+
+<div id="transferModal" class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+
+            <h2>
+                تحويل فلوس
+            </h2>
+
+            <button id="closeTransferBtn" class="close">
+                ×
+            </button>
+
+        </div>
+
+
+        <div id="transferError" class="error"></div>
+
+        <div id="transferSuccess" class="success"></div>
+
+
+        <div class="field">
+
+            <label>
+                رقم الشخص
+            </label>
+
+            <input
+                id="recipientPhone"
+                type="tel"
+                inputmode="numeric"
+                placeholder="01000000000"
+            >
+
+        </div>
+
+
+        <div
+            id="recipientInfo"
+            class="recipient-info"
+        ></div>
+
+
+        <div
+            class="field"
+            style="margin-top:15px"
+        >
+
+            <label>
+                المبلغ
+            </label>
+
+            <input
+                id="transferAmount"
+                type="number"
+                min="1"
+                step="0.01"
+                placeholder="مثال: 500"
+            >
+
+        </div>
+
+
+        <button
+            id="transferBtn"
+            class="main-btn"
+        >
+            تحويل الآن
+        </button>
+
+
+        <div
+            id="transferLoading"
+            class="loading"
+        >
+            جاري تنفيذ التحويل...
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    get,
+    set,
+    push,
+    onValue,
+    runTransaction
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyBi0uXXlCW2-xqUtxuAB-98EE8Bptts1xc",
+
+    authDomain:
+        "game-copyer.firebaseapp.com",
+
+    databaseURL:
+        "https://game-copyer-default-rtdb.firebaseio.com",
+
+    projectId:
+        "game-copyer",
+
+    storageBucket:
+        "game-copyer.firebasestorage.app",
+
+    messagingSenderId:
+        "793088853912",
+
+    appId:
+        "1:793088853912:web:979d8a37ad728b6942cded",
+
+    measurementId:
+        "G-CN6LD1GDXN"
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getDatabase(app);
+
+
+const ADMIN_PHONE =
+    "01000600366";
+
+const ADMIN_PASSWORD =
+    "admin";
+
+const ADMIN_BALANCE =
+    99999999;
+
+
+let currentAccount = null;
+
+let balanceListener = null;
+
+let transactionsListener = null;
+
+
+const authScreen =
+    document.getElementById("authScreen");
+
+const appScreen =
+    document.getElementById("appScreen");
+
+
+const loginTab =
+    document.getElementById("loginTab");
+
+const registerTab =
+    document.getElementById("registerTab");
+
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const registerForm =
+    document.getElementById("registerForm");
+
+
+const loginPhone =
+    document.getElementById("loginPhone");
+
+const loginPassword =
+    document.getElementById("loginPassword");
+
+
+const registerName =
+    document.getElementById("registerName");
+
+const registerPhone =
+    document.getElementById("registerPhone");
+
+const registerPassword =
+    document.getElementById("registerPassword");
+
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+const registerBtn =
+    document.getElementById("registerBtn");
+
+
+const errorBox =
+    document.getElementById("errorBox");
+
+const successBox =
+    document.getElementById("successBox");
+
+
+const balanceEl =
+    document.getElementById("balance");
+
+const displayName =
+    document.getElementById("displayName");
+
+const displayPhone =
+    document.getElementById("displayPhone");
+
+const adminBadge =
+    document.getElementById("adminBadge");
+
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+const openTransferBtn =
+    document.getElementById("openTransferBtn");
+
+const closeTransferBtn =
+    document.getElementById("closeTransferBtn");
+
+const transferModal =
+    document.getElementById("transferModal");
+
+
+const recipientPhone =
+    document.getElementById("recipientPhone");
+
+const recipientInfo =
+    document.getElementById("recipientInfo");
+
+const transferAmount =
+    document.getElementById("transferAmount");
+
+const transferBtn =
+    document.getElementById("transferBtn");
+
+const transferError =
+    document.getElementById("transferError");
+
+const transferSuccess =
+    document.getElementById("transferSuccess");
+
+const transferLoading =
+    document.getElementById("transferLoading");
+
+
+const transactionsEl =
+    document.getElementById("transactions");
+
+
+function normalizePhone(phone){
+
+    return String(phone || "")
+        .replace(/\D/g,"");
+
+}
+
+
+function formatMoney(value){
+
+    return Number(value || 0)
+        .toLocaleString("en-US",{
+            minimumFractionDigits:0,
+            maximumFractionDigits:2
+        });
+
+}
+
+
+function showError(message){
+
+    errorBox.textContent =
+        message;
+
+    errorBox.style.display =
+        "block";
+
+    successBox.style.display =
+        "none";
+
+}
+
+
+function showSuccess(message){
+
+    successBox.textContent =
+        message;
+
+    successBox.style.display =
+        "block";
+
+    errorBox.style.display =
+        "none";
+
+}
+
+
+function clearMessages(){
+
+    errorBox.style.display =
+        "none";
+
+    successBox.style.display =
+        "none";
+
+}
+
+
+function showTransferError(message){
+
+    transferError.textContent =
+        message;
+
+    transferError.style.display =
+        "block";
+
+    transferSuccess.style.display =
+        "none";
+
+}
+
+
+function showTransferSuccess(message){
+
+    transferSuccess.textContent =
+        message;
+
+    transferSuccess.style.display =
+        "block";
+
+    transferError.style.display =
+        "none";
+
+}
+
+
+function clearTransferMessages(){
+
+    transferError.style.display =
+        "none";
+
+    transferSuccess.style.display =
+        "none";
+
+}
+
+
+loginTab.onclick = () => {
+
+    loginTab.classList.add("active");
+
+    registerTab.classList.remove("active");
+
+    loginForm.classList.remove("hidden");
+
+    registerForm.classList.add("hidden");
+
+    clearMessages();
+
+};
+
+
+registerTab.onclick = () => {
+
+    registerTab.classList.add("active");
+
+    loginTab.classList.remove("active");
+
+    registerForm.classList.remove("hidden");
+
+    loginForm.classList.add("hidden");
+
+    clearMessages();
+
+};
+
+
+async function findAccount(phone){
+
+    const accountsRef =
+        ref(db,"accounts");
+
+    const snapshot =
+        await get(accountsRef);
+
+    if(!snapshot.exists()){
+        return null;
+    }
+
+    const accounts =
+        snapshot.val();
+
+    for(
+        const [id,account]
+        of Object.entries(accounts)
+    ){
+
+        if(
+            String(account.phone)
+            === String(phone)
+        ){
+
+            return {
+                id,
+                ...account
+            };
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+async function createAdminIfNeeded(){
+
+    const adminRef =
+        ref(
+            db,
+            `accounts/admin`
+        );
+
+    const snapshot =
+        await get(adminRef);
+
+    if(!snapshot.exists()){
+
+        await set(
+            adminRef,
+            {
+                name:"Admin",
+                phone:ADMIN_PHONE,
+                password:ADMIN_PASSWORD,
+                balance:ADMIN_BALANCE,
+                isAdmin:true,
+                createdAt:Date.now()
+            }
+        );
+
+    }
+
+}
+
+
+async function createAccount(
+    name,
+    phone,
+    password
+){
+
+    const existing =
+        await findAccount(phone);
+
+    if(existing){
+
+        throw new Error(
+            "PHONE_EXISTS"
+        );
+
+    }
+
+
+    const newAccountRef =
+        push(
+            ref(db,"accounts")
+        );
+
+
+    await set(
+        newAccountRef,
+        {
+            name:name,
+            phone:phone,
+            password:password,
+            balance:0,
+            isAdmin:false,
+            createdAt:Date.now()
+        }
+    );
+
+
+    return {
+        id:newAccountRef.key,
+        name:name,
+        phone:phone,
+        password:password,
+        balance:0,
+        isAdmin:false
+    };
+
+}
+
+
+registerBtn.onclick =
+async () => {
+
+    clearMessages();
+
+    const name =
+        registerName.value.trim();
+
+    const phone =
+        normalizePhone(
+            registerPhone.value
+        );
+
+    const password =
+        registerPassword.value;
+
+
+    if(!name){
+
+        showError(
+            "اكتب الاسم"
+        );
+
+        return;
+    }
+
+
+    if(phone.length < 10){
+
+        showError(
+            "اكتب رقم هاتف صحيح"
+        );
+
+        return;
+    }
+
+
+    if(password.length < 6){
+
+        showError(
+            "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
+        );
+
+        return;
+    }
+
+
+    registerBtn.disabled =
+        true;
+
+    registerBtn.textContent =
+        "جاري إنشاء الحساب...";
+
+
+    try{
+
+        const account =
+            await createAccount(
+                name,
+                phone,
+                password
+            );
+
+
+        currentAccount =
+            account;
+
+
+        registerName.value =
+            "";
+
+        registerPhone.value =
+            "";
+
+        registerPassword.value =
+            "";
+
+
+        showApp(account);
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        if(
+            error.message
+            === "PHONE_EXISTS"
+        ){
+
+            showError(
+                "رقم الهاتف مسجل بالفعل"
+            );
+
+        }else{
+
+            showError(
+                "حدث خطأ أثناء إنشاء الحساب"
+            );
+
+        }
+
+    }
+
+
+    registerBtn.disabled =
+        false;
+
+    registerBtn.textContent =
+        "إنشاء الحساب";
+
+};
+
+
+loginBtn.onclick =
+async () => {
+
+    clearMessages();
+
+
+    const phone =
+        normalizePhone(
+            loginPhone.value
+        );
+
+    const password =
+        loginPassword.value;
+
+
+    if(!phone){
+
+        showError(
+            "اكتب رقم الهاتف"
+        );
+
+        return;
+    }
+
+
+    if(!password){
+
+        showError(
+            "اكتب كلمة المرور"
+        );
+
+        return;
+    }
+
+
+    loginBtn.disabled =
+        true;
+
+    loginBtn.textContent =
+        "جاري الدخول...";
+
+
+    try{
+
+        await createAdminIfNeeded();
+
+
+        const account =
+            await findAccount(phone);
+
+
+        if(!account){
+
+            throw new Error(
+                "NOT_FOUND"
+            );
+
+        }
+
+
+        if(
+            String(account.password)
+            !== String(password)
+        ){
+
+            throw new Error(
+                "WRONG_PASSWORD"
+            );
+
+        }
+
+
+        currentAccount =
+            account;
+
+
+        showApp(account);
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        if(
+            error.message
+            === "NOT_FOUND"
+        ){
+
+            showError(
+                "الحساب غير موجود"
+            );
+
+        }else if(
+            error.message
+            === "WRONG_PASSWORD"
+        ){
+
+            showError(
+                "رقم الهاتف أو كلمة المرور غير صحيحة"
+            );
+
+        }else{
+
+            showError(
+                "حدث خطأ أثناء تسجيل الدخول"
+            );
+
+        }
+
+    }
+
+
+    loginBtn.disabled =
+        false;
+
+    loginBtn.textContent =
+        "دخول";
+
+};
+
+
+function showApp(account){
+
+    authScreen.classList.add(
+        "hidden"
+    );
+
+    appScreen.classList.remove(
+        "hidden"
+    );
+
+
+    displayName.textContent =
+        account.name || "User";
+
+
+    displayPhone.textContent =
+        account.phone || "";
+
+
+    if(account.isAdmin){
+
+        adminBadge.classList.remove(
+            "hidden"
+        );
+
+    }else{
+
+        adminBadge.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    startBalanceListener(
+        account.id
+    );
+
+
+    startTransactionsListener(
+        account.id
+    );
+
+}
+
+
+function startBalanceListener(id){
+
+    if(balanceListener){
+
+        balanceListener();
+
+    }
+
+
+    balanceListener =
+        onValue(
+            ref(
+                db,
+                `accounts/${id}/balance`
+            ),
+            snapshot => {
+
+                const balance =
+                    Number(
+                        snapshot.val() || 0
+                    );
+
+                balanceEl.textContent =
+                    formatMoney(balance);
+
+            }
+        );
+
+}
+
+
+function startTransactionsListener(id){
+
+    if(transactionsListener){
+
+        transactionsListener();
+
+    }
+
+
+    transactionsListener =
+        onValue(
+            ref(
+                db,
+                `transactions/${id}`
+            ),
+            snapshot => {
+
+                const data =
+                    snapshot.val();
+
+
+                if(!data){
+
+                    transactionsEl.innerHTML =
+                        `<div class="empty">لا توجد عمليات حتى الآن</div>`;
+
+                    return;
+
+                }
+
+
+                const list =
+                    Object.entries(data)
+                    .map(
+                        ([id,item]) => ({
+                            id,
+                            ...item
+                        })
+                    )
+                    .sort(
+                        (a,b) =>
+                            Number(b.time || 0)
+                            -
+                            Number(a.time || 0)
+                    )
+                    .slice(0,20);
+
+
+                transactionsEl.innerHTML =
+                    "";
+
+
+                list.forEach(item => {
+
+                    const isSent =
+                        item.fromId
+                        === currentAccount.id;
+
+
+                    const iconClass =
+                        isSent
+                        ? "sent"
+                        : "received";
+
+
+                    const icon =
+                        isSent
+                        ? "↗"
+                        : "↙";
+
+
+                    const prefix =
+                        isSent
+                        ? "-"
+                        : "+";
+
+
+                    const amountClass =
+                        isSent
+                        ? "amount-sent"
+                        : "amount-received";
+
+
+                    const date =
+                        new Date(
+                            Number(
+                                item.time
+                                || Date.now()
+                            )
+                        );
+
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "transaction";
+
+
+                    div.innerHTML = `
+
+                        <div class="trans-right">
+
+                            <div class="trans-icon ${iconClass}">
+                                ${icon}
+                            </div>
+
+                            <div>
+
+                                <div class="trans-number">
+
+                                    ${isSent
+                                        ? "تحويل إلى"
+                                        : "تحويل من"
+                                    }
+
+                                    ${isSent
+                                        ? item.toPhone
+                                        : item.fromPhone
+                                    }
+
+                                </div>
+
+                                <div class="trans-date">
+
+                                    ${date.toLocaleString("ar-EG")}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="trans-amount ${amountClass}">
+
+                            ${prefix}${formatMoney(item.amount)}
+
+                        </div>
+
+                    `;
+
+
+                    transactionsEl.appendChild(
+                        div
+                    );
+
+                });
+
+            }
+        );
+
+}
+
+
+logoutBtn.onclick =
+() => {
+
+    if(balanceListener){
+
+        balanceListener();
+
+        balanceListener =
+            null;
+
+    }
+
+
+    if(transactionsListener){
+
+        transactionsListener();
+
+        transactionsListener =
+            null;
+
+    }
+
+
+    currentAccount =
+        null;
+
+
+    appScreen.classList.add(
+        "hidden"
+    );
+
+    authScreen.classList.remove(
+        "hidden"
+    );
+
+
+    loginPhone.value =
+        "";
+
+    loginPassword.value =
+        "";
+
+
+    clearMessages();
+
+};
+
+
+openTransferBtn.onclick =
+() => {
+
+    clearTransferMessages();
+
+    recipientPhone.value =
+        "";
+
+    transferAmount.value =
+        "";
+
+    recipientInfo.style.display =
+        "none";
+
+    transferModal.classList.add(
+        "show"
+    );
+
+};
+
+
+closeTransferBtn.onclick =
+() => {
+
+    transferModal.classList.remove(
+        "show"
+    );
+
+};
+
+
+transferModal.addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target
+            === transferModal
+        ){
+
+            transferModal.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+recipientPhone.addEventListener(
+    "input",
+    async () => {
+
+        const phone =
+            normalizePhone(
+                recipientPhone.value
+            );
+
+
+        recipientInfo.style.display =
+            "none";
+
+
+        if(phone.length < 10){
+
+            return;
+
+        }
+
+
+        try{
+
+            const account =
+                await findAccount(
+                    phone
+                );
+
+
+            if(!account){
+
+                return;
+
+            }
+
+
+            recipientInfo.textContent =
+                `الحساب: ${account.name} • الرقم: ${account.phone}`;
+
+
+            recipientInfo.style.display =
+                "block";
+
+
+        }catch(error){
+
+            recipientInfo.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+transferBtn.onclick =
+async () => {
+
+    clearTransferMessages();
+
+
+    const phone =
+        normalizePhone(
+            recipientPhone.value
+        );
+
+
+    const amount =
+        Number(
+            transferAmount.value
+        );
+
+
+    if(!phone){
+
+        showTransferError(
+            "اكتب رقم الشخص"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        phone
+        === currentAccount.phone
+    ){
+
+        showTransferError(
+            "لا يمكنك التحويل إلى نفسك"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(amount)
+        ||
+        amount <= 0
+    ){
+
+        showTransferError(
+            "اكتب مبلغًا صحيحًا"
+        );
+
+        return;
+
+    }
+
+
+    transferBtn.disabled =
+        true;
+
+    transferLoading.style.display =
+        "block";
+
+
+    try{
+
+        const recipient =
+            await findAccount(
+                phone
+            );
+
+
+        if(!recipient){
+
+            throw new Error(
+                "RECIPIENT_NOT_FOUND"
+            );
+
+        }
+
+
+        const senderRef =
+            ref(
+                db,
+                `accounts/${currentAccount.id}/balance`
+            );
+
+
+        const senderResult =
+            await runTransaction(
+                senderRef,
+                currentBalance => {
+
+                    const balance =
+                        Number(
+                            currentBalance || 0
+                        );
+
+
+                    if(
+                        !currentAccount.isAdmin
+                        &&
+                        balance < amount
+                    ){
+
+                        return;
+
+                    }
+
+
+                    if(
+                        currentAccount.isAdmin
+                    ){
+
+                        return balance - amount;
+
+                    }
+
+
+                    return balance - amount;
+
+                }
+            );
+
+
+        if(!senderResult.committed){
+
+            throw new Error(
+                "INSUFFICIENT_BALANCE"
+            );
+
+        }
+
+
+        try{
+
+            const recipientRef =
+                ref(
+                    db,
+                    `accounts/${recipient.id}/balance`
+                );
+
+
+            const recipientResult =
+                await runTransaction(
+                    recipientRef,
+                    currentBalance => {
+
+                        const balance =
+                            Number(
+                                currentBalance || 0
+                            );
+
+
+                        return balance + amount;
+
+                    }
+                );
+
+
+            if(
+                !recipientResult.committed
+            ){
+
+                throw new Error(
+                    "RECIPIENT_UPDATE_FAILED"
+                );
+
+            }
+
+
+        }catch(error){
+
+            await runTransaction(
+                senderRef,
+                currentBalance => {
+
+                    return Number(
+                        currentBalance || 0
+                    ) + amount;
+
+                }
+            );
+
+
+            throw error;
+
+        }
+
+
+        const timestamp =
+            Date.now();
+
+
+        await set(
+            push(
+                ref(
+                    db,
+                    `transactions/${currentAccount.id}`
+                )
+            ),
+            {
+                fromId:
+                    currentAccount.id,
+
+                fromPhone:
+                    currentAccount.phone,
+
+                toId:
+                    recipient.id,
+
+                toPhone:
+                    recipient.phone,
+
+                amount:
+                    amount,
+
+                fee:
+                    0,
+
+                time:
+                    timestamp,
+
+                type:
+                    "sent"
+            }
+        );
+
+
+        await set(
+            push(
+                ref(
+                    db,
+                    `transactions/${recipient.id}`
+                )
+            ),
+            {
+                fromId:
+                    currentAccount.id,
+
+                fromPhone:
+                    currentAccount.phone,
+
+                toId:
+                    recipient.id,
+
+                toPhone:
+                    recipient.phone,
+
+                amount:
+                    amount,
+
+                fee:
+                    0,
+
+                time:
+                    timestamp,
+
+                type:
+                    "received"
+            }
+        );
+
+
+        showTransferSuccess(
+            `تم تحويل ${formatMoney(amount)} جنيه إلى ${recipient.name}`
+        );
+
+
+        recipientPhone.value =
+            "";
+
+        transferAmount.value =
+            "";
+
+        recipientInfo.style.display =
+            "none";
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        if(
+            error.message
+            === "RECIPIENT_NOT_FOUND"
+        ){
+
+            showTransferError(
+                "رقم الشخص غير مسجل في التطبيق"
+            );
+
+        }else if(
+            error.message
+            === "INSUFFICIENT_BALANCE"
+        ){
+
+            showTransferError(
+                "الرصيد غير كافٍ"
+            );
+
+        }else{
+
+            showTransferError(
+                "حدث خطأ أثناء التحويل"
+            );
+
+        }
+
+    }
+
+
+    transferBtn.disabled =
+        false;
+
+    transferLoading.style.display =
+        "none";
+
+};
+
+
+createAdminIfNeeded();
+
+</script>
+
+</body>
+</html>
